@@ -11,72 +11,56 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black:   #0A0A0A;
-      --dark:    #161616;
       --gold:    #F5C518;
-      --gold2:   #E0A800;
+      --gold2:   #D4A800;
       --white:   #FFFFFF;
-      --glass:   rgba(255,255,255,0.05);
-      --glass-border: rgba(255,255,255,0.08);
+      --black:   #0A0A0A;
+      --glass:   rgba(10,10,10,0.55);
+      --glass-border: rgba(245,197,24,0.15);
       --glow:    0 0 40px rgba(245,197,24,0.3);
-      --glow-btn:0 0 24px rgba(245,197,24,0.6);
-      --radius:  20px;
+      --glow-btn:0 0 28px rgba(245,197,24,0.65);
+      --radius:  18px;
       --transition: 300ms cubic-bezier(.4,0,.2,1);
     }
 
     html, body {
       min-height: 100%;
-      background: var(--black);
+      font-family: 'Montserrat', sans-serif;
       color: var(--white);
-      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
     }
 
-    @media (min-height: 700px) and (min-width: 768px) {
+    @media (min-height: 680px) and (min-width: 768px) {
       html, body { height: 100%; overflow: hidden; }
     }
 
-    /* ── BACKGROUND ── */
+    /* ── FONDO ── */
     .bg {
       position: fixed; inset: 0; z-index: 0;
-      background:
-        radial-gradient(ellipse 80% 55% at 50% 0%, rgba(245,197,24,.10) 0%, transparent 65%),
-        radial-gradient(ellipse 50% 40% at 15% 100%, rgba(245,197,24,.06) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 85% 100%, rgba(245,197,24,.06) 0%, transparent 60%),
-        linear-gradient(160deg, #080808 0%, #111111 50%, #0c0c0c 100%);
+      background-image: url('fondo-bender.png');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
     }
 
-    .bg::before {
+    /* Overlay oscuro para legibilidad */
+    .bg::after {
       content: '';
       position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(245,197,24,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(245,197,24,.035) 1px, transparent 1px);
-      background-size: 55px 55px;
-      mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, black 20%, transparent 100%);
-    }
-
-    /* ── WATERMARK — usa el logo Benderam como marca de agua ── */
-    .watermark {
-      position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: clamp(280px, 45vw, 500px);
-      opacity: 0.04;
-      filter: grayscale(1) brightness(3);
-      user-select: none;
-      pointer-events: none;
-      z-index: 0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.72) 100%),
+        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(245,197,24,0.07) 0%, transparent 70%);
     }
 
     /* ── PARTICLES ── */
     .particles {
-      position: fixed; inset: 0; z-index: 0;
+      position: fixed; inset: 0; z-index: 1;
       pointer-events: none; overflow: hidden;
     }
     .particle {
@@ -87,22 +71,22 @@
       animation: float-particle linear infinite;
     }
     @keyframes float-particle {
-      0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
-      10%  { opacity: .5; }
-      90%  { opacity: .2; }
-      100% { transform: translateY(-10vh) translateX(20px); opacity: 0; }
+      0%   { transform: translateY(100vh); opacity: 0; }
+      10%  { opacity: .45; }
+      90%  { opacity: .15; }
+      100% { transform: translateY(-10vh); opacity: 0; }
     }
 
     /* ── LAYOUT ── */
     .panel {
-      position: relative; z-index: 1;
+      position: relative; z-index: 2;
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 28px 20px 32px;
-      gap: 20px;
+      padding: 28px 20px 36px;
+      gap: 22px;
     }
 
     /* ── HEADER ── */
@@ -116,68 +100,69 @@
       animation: slide-up .8s .1s forwards;
     }
 
-    /* Logo Benderam — grande, protagonista */
     .logo-benderam {
-      width: clamp(130px, 20vw, 190px);
+      width: clamp(120px, 18vw, 175px);
       height: auto;
-      filter: drop-shadow(0 0 20px rgba(245,197,24,.35));
-      animation: logo-pulse 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 22px rgba(245,197,24,.4));
+      animation: logo-pulse 3.5s ease-in-out infinite;
     }
 
     @keyframes logo-pulse {
       0%,100% { filter: drop-shadow(0 0 18px rgba(245,197,24,.3)); }
-      50%      { filter: drop-shadow(0 0 32px rgba(245,197,24,.55)); }
+      50%      { filter: drop-shadow(0 0 36px rgba(245,197,24,.6)); }
     }
 
-    /* Logo Ecuabet — más pequeño, debajo */
-    .logo-ecuabet {
-      height: clamp(28px, 4vw, 38px);
-      width: auto;
-      border-radius: 8px;
-      opacity: .9;
-    }
-
-    .header-divider {
+    .header-sep {
       display: flex;
       align-items: center;
       gap: 10px;
-      color: rgba(255,255,255,.2);
-      font-size: 10px;
-      letter-spacing: 0.12em;
+      color: rgba(255,255,255,.35);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
     }
-    .header-divider::before,
-    .header-divider::after {
+    .header-sep::before,
+    .header-sep::after {
       content: '';
-      width: 30px; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(245,197,24,.3));
+      width: 28px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(245,197,24,.4));
     }
-    .header-divider::after {
-      background: linear-gradient(90deg, rgba(245,197,24,.3), transparent);
+    .header-sep::after {
+      background: linear-gradient(90deg, rgba(245,197,24,.4), transparent);
+    }
+
+    .logo-ecuabet {
+      height: clamp(26px, 3.5vw, 36px);
+      width: auto;
+      border-radius: 7px;
+      opacity: .92;
     }
 
     .tagline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(17px, 3vw, 24px);
-      font-weight: 700;
+      font-size: clamp(18px, 3.2vw, 26px);
+      font-weight: 800;
       color: var(--white);
       line-height: 1.2;
+      margin-top: 4px;
+      letter-spacing: -0.01em;
     }
 
     .subtitle {
-      font-size: clamp(11px, 1.8vw, 13px);
-      color: rgba(255,255,255,.45);
-      max-width: 380px;
-      line-height: 1.55;
+      font-size: clamp(11px, 1.7vw, 13px);
+      color: rgba(255,255,255,.5);
+      max-width: 370px;
+      line-height: 1.6;
+      font-weight: 400;
     }
 
     /* ── DIVIDER ── */
     .divider {
-      width: 50px; height: 2px;
+      width: 48px; height: 2px;
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
       border-radius: 2px;
       opacity: 0;
-      animation: slide-up .7s .3s forwards;
+      animation: slide-up .6s .3s forwards;
     }
 
     /* ── CARDS ── */
@@ -195,63 +180,68 @@
       background: var(--glass);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius);
-      padding: 26px 18px 20px;
+      padding: 28px 20px 22px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 12px;
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      gap: 13px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
       animation: float 4s ease-in-out infinite;
     }
 
     .card:nth-child(1) { animation-delay: 0s; }
-    .card:nth-child(2) { animation-delay: .7s; }
-    .card:nth-child(3) { animation-delay: 1.4s; }
+    .card:nth-child(2) { animation-delay: .8s; }
+    .card:nth-child(3) { animation-delay: 1.6s; }
 
     @keyframes float {
-      0%,100% { transform: translateY(0px); }
+      0%,100% { transform: translateY(0); }
       50%      { transform: translateY(-7px); }
     }
 
     .card:hover {
       transform: translateY(-12px) scale(1.03) !important;
-      box-shadow: var(--glow), 0 24px 48px rgba(0,0,0,.6);
-      border-color: rgba(245,197,24,.4);
+      box-shadow: var(--glow), 0 28px 50px rgba(0,0,0,.7);
+      border-color: rgba(245,197,24,.45);
       animation-play-state: paused;
     }
 
+    /* ── CARD ICON — SVG ── */
     .card-icon {
       width: 54px; height: 54px;
       border-radius: 14px;
-      background: linear-gradient(135deg, rgba(245,197,24,.18), rgba(245,197,24,.06));
-      border: 1px solid rgba(245,197,24,.22);
+      background: linear-gradient(135deg, rgba(245,197,24,.18), rgba(245,197,24,.05));
+      border: 1px solid rgba(245,197,24,.25);
       display: flex; align-items: center; justify-content: center;
-      font-size: 24px;
       box-shadow: 0 0 22px rgba(245,197,24,.12);
-      flex-shrink: 0;
       transition: box-shadow var(--transition);
+      flex-shrink: 0;
     }
 
     .card:hover .card-icon {
-      box-shadow: 0 0 30px rgba(245,197,24,.35);
+      box-shadow: 0 0 32px rgba(245,197,24,.4);
+    }
+
+    .card-icon svg {
+      width: 26px; height: 26px;
     }
 
     .card-title {
-      font-family: 'Playfair Display', serif;
       font-size: clamp(14px, 2vw, 16px);
       font-weight: 700;
       color: var(--white);
       line-height: 1.2;
+      letter-spacing: -0.01em;
     }
 
     .card-text {
       font-size: clamp(11px, 1.5vw, 12.5px);
       color: rgba(255,255,255,.42);
-      line-height: 1.55;
+      line-height: 1.6;
       flex-grow: 1;
+      font-weight: 400;
     }
 
     /* ── BUTTON ── */
@@ -259,21 +249,20 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 7px;
       width: 100%;
-      padding: 12px 14px;
-      border-radius: 12px;
+      padding: 13px 16px;
+      border-radius: 11px;
       background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 100%);
       color: var(--black);
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(10.5px, 1.4vw, 12.5px);
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(11px, 1.4vw, 12.5px);
       font-weight: 700;
-      letter-spacing: 0.01em;
+      letter-spacing: 0.02em;
       text-decoration: none;
       border: none;
       cursor: pointer;
       transition: box-shadow var(--transition), transform var(--transition), filter var(--transition);
-      white-space: nowrap;
       position: relative;
       overflow: hidden;
     }
@@ -281,28 +270,33 @@
     .btn::before {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,.15) 0%, transparent 60%);
+      background: linear-gradient(135deg, rgba(255,255,255,.18) 0%, transparent 55%);
       opacity: 0;
       transition: opacity var(--transition);
     }
 
     .btn:hover {
       box-shadow: var(--glow-btn);
-      filter: brightness(1.07);
+      filter: brightness(1.06);
       transform: translateY(-2px);
     }
     .btn:hover::before { opacity: 1; }
     .btn:active { transform: translateY(0); }
+
+    .btn svg {
+      width: 14px; height: 14px;
+      flex-shrink: 0;
+    }
 
     /* ── BADGE ── */
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      font-size: 10px;
-      font-weight: 500;
+      font-size: 9.5px;
+      font-weight: 600;
       color: rgba(255,255,255,.3);
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       opacity: 0;
       animation: slide-up .7s .7s forwards;
@@ -319,22 +313,21 @@
 
     @keyframes pulse-dot {
       0%,100% { box-shadow: 0 0 6px #22c55e; }
-      50%      { box-shadow: 0 0 14px #22c55e; }
+      50%      { box-shadow: 0 0 16px #22c55e; }
     }
 
     @keyframes slide-up {
-      from { opacity: 0; transform: translateY(22px); }
+      from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 767px) {
-      .panel { padding: 32px 16px 40px; gap: 22px; }
-      .cards { flex-direction: column; max-width: 380px; }
-      .card { animation: none !important; }
+      .panel { padding: 32px 16px 44px; gap: 20px; }
+      .cards { flex-direction: column; max-width: 370px; }
+      .card { animation: none !important; padding: 24px 18px 20px; }
       .card:hover { transform: none !important; }
-      .btn { white-space: normal; font-size: 12px; line-height: 1.3; }
-      .logo-benderam { width: clamp(110px, 40vw, 160px); }
+      .btn { font-size: 12px; }
     }
 
     @media (min-width: 768px) and (max-width: 1023px) {
@@ -344,16 +337,14 @@
 
     @media (min-width: 1440px) {
       .cards { max-width: 1080px; gap: 22px; }
-      .card { padding: 32px 24px 26px; }
+      .card { padding: 34px 26px 26px; }
     }
   </style>
 </head>
 <body>
 
+<!-- Fondo -->
 <div class="bg"></div>
-
-<!-- Watermark con logo Benderam -->
-<img class="watermark" src="logo-benderam.png" alt="" aria-hidden="true" />
 
 <!-- Particles -->
 <div class="particles" id="particles"></div>
@@ -362,17 +353,9 @@
 
   <!-- HEADER -->
   <header class="header">
-
-    <!-- Logo Benderam principal -->
     <img class="logo-benderam" src="logo-benderam.png" alt="Benderam" />
-
-    <!-- Separador con texto -->
-    <div class="header-divider">Agencia oficial</div>
-
-    <!-- Logo Ecuabet -->
+    <div class="header-sep">Agencia oficial</div>
     <img class="logo-ecuabet" src="logo-ecuabet.png" alt="Ecuabet" />
-
-    <!-- Copy -->
     <p class="tagline">Todo lo que necesitas en un solo lugar.</p>
     <p class="subtitle">Recarga, crea tu cuenta Ecuabet o conviértete en una agencia oficial de manera rápida, segura y profesional.</p>
   </header>
@@ -382,36 +365,59 @@
   <!-- CARDS -->
   <div class="cards">
 
+    <!-- Tarjeta 1: Recargas -->
     <div class="card">
-      <div class="card-icon">💳</div>
+      <div class="card-icon">
+        <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="6" width="22" height="15" rx="3" stroke="#F5C518" stroke-width="1.8"/>
+          <path d="M2 11h22" stroke="#F5C518" stroke-width="1.8" stroke-linecap="round"/>
+          <rect x="5" y="14.5" width="5" height="3" rx="1" fill="#F5C518"/>
+          <circle cx="19.5" cy="16" r="1.5" fill="#F5C518"/>
+        </svg>
+      </div>
       <div class="card-title">Recargas y Retiros</div>
       <p class="card-text">Realiza tus recargas y solicita tus retiros de forma rápida y segura.</p>
       <a class="btn"
          href="https://wa.me/593980644490?text=Hola%2C%20quiero%20realizar%20una%20recarga%20o%20retiro"
          target="_blank" rel="noopener">
-        Quiero realizar una recarga o retiro →
+        Quiero realizar una recarga o retiro
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
 
+    <!-- Tarjeta 2: Crear cuenta -->
     <div class="card">
-      <div class="card-icon">🎯</div>
+      <div class="card-icon">
+        <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="13" cy="9" r="4" stroke="#F5C518" stroke-width="1.8"/>
+          <path d="M5 21c0-4 3.6-7 8-7s8 3 8 7" stroke="#F5C518" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M19 4v6M16 7h6" stroke="#F5C518" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
       <div class="card-title">Crear cuenta Ecuabet</div>
       <p class="card-text">Abre tu cuenta y comienza a disfrutar de la experiencia Ecuabet.</p>
       <a class="btn"
          href="https://wa.me/593980644490?text=Hola%2C%20quiero%20crear%20mi%20cuenta%20Ecuabet"
          target="_blank" rel="noopener">
-        Quiero crear mi cuenta Ecuabet →
+        Quiero crear mi cuenta Ecuabet
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
 
+    <!-- Tarjeta 3: Agencia -->
     <div class="card">
-      <div class="card-icon">🚀</div>
+      <div class="card-icon">
+        <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 3L15.5 9.5H22.5L16.8 13.5L19 20L13 16L7 20L9.2 13.5L3.5 9.5H10.5L13 3Z" stroke="#F5C518" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+      </div>
       <div class="card-title">Crear mi agencia Ecuabet</div>
       <p class="card-text">Forma parte de nuestra red y genera ingresos creando tu propia agencia.</p>
       <a class="btn"
          href="https://wa.me/593980644490?text=Hola%2C%20quiero%20crear%20mi%20agencia%20Ecuabet"
          target="_blank" rel="noopener">
-        Quiero crear mi agencia Ecuabet →
+        Quiero crear mi agencia Ecuabet
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
 
@@ -425,16 +431,15 @@
 </main>
 
 <script>
-  // Particles
   const container = document.getElementById('particles');
-  for (let i = 0; i < 25; i++) {
+  for (let i = 0; i < 20; i++) {
     const p = document.createElement('div');
     p.className = 'particle';
-    const size = Math.random() > .75 ? 3 : 2;
+    const size = Math.random() > .7 ? 3 : 2;
     p.style.cssText = `
       left:${Math.random()*100}%;
       width:${size}px; height:${size}px;
-      animation-duration:${9+Math.random()*13}s;
+      animation-duration:${10+Math.random()*14}s;
       animation-delay:${Math.random()*12}s;
     `;
     container.appendChild(p);
