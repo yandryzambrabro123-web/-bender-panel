@@ -28,6 +28,30 @@
   /></noscript>
   <!-- End Meta Pixel Code -->
 
+  <!-- Tracking confirmado: solo cuenta el registro si el navegador realmente
+       cambió a segundo plano (señal de que WhatsApp se abrió de verdad) -->
+  <script>
+    function trackConfirmedRegistration(contentName) {
+      let yaConto = false;
+
+      function confirmar() {
+        if (document.hidden && !yaConto) {
+          yaConto = true;
+          fbq('track', 'Lead', { content_name: contentName });
+          fbq('track', 'CompleteRegistration', { content_name: contentName });
+        }
+      }
+
+      document.addEventListener('visibilitychange', confirmar);
+
+      // Si en 2.5s no cambió de pantalla, asumimos que no abrió WhatsApp
+      // y quitamos el listener para no contar nada.
+      setTimeout(function () {
+        document.removeEventListener('visibilitychange', confirmar);
+      }, 2500);
+    }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -399,7 +423,7 @@
       <a class="btn"
          href="https://wa.me/593980644490?text=Hola%2C%20quiero%20realizar%20una%20recarga%20o%20retiro"
          target="_blank" rel="noopener"
-         onclick="fbq('track', 'Lead', {content_name: 'Recarga o Retiro'}); fbq('track', 'CompleteRegistration', {content_name: 'Recarga o Retiro'});">
+         onclick="trackConfirmedRegistration('Recarga o Retiro')">
         Quiero realizar una recarga o retiro
         <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -419,7 +443,7 @@
       <a class="btn"
          href="https://wa.me/593980644490?text=Hola%2C%20quiero%20crear%20mi%20cuenta%20Ecuabet"
          target="_blank" rel="noopener"
-         onclick="fbq('track', 'Lead', {content_name: 'Crear Cuenta Ecuabet'}); fbq('track', 'CompleteRegistration', {content_name: 'Crear Cuenta Ecuabet'});">
+         onclick="trackConfirmedRegistration('Crear Cuenta Ecuabet')">
         Quiero crear mi cuenta Ecuabet
         <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -437,7 +461,7 @@
       <a class="btn"
          href="https://wa.me/593980644490?text=Hola%2C%20quiero%20crear%20mi%20agencia%20Ecuabet"
          target="_blank" rel="noopener"
-         onclick="fbq('track', 'Lead', {content_name: 'Crear Agencia Ecuabet'}); fbq('track', 'CompleteRegistration', {content_name: 'Crear Agencia Ecuabet'});">
+         onclick="trackConfirmedRegistration('Crear Agencia Ecuabet')">
         Quiero crear mi agencia Ecuabet
         <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
