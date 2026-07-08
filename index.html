@@ -33,12 +33,15 @@
   <script>
     function trackConfirmedRegistration(contentName) {
       let yaConto = false;
+      console.log('👉 Clic detectado en:', contentName);
 
       function confirmar() {
+        console.log('👀 Cambio de visibilidad. document.hidden =', document.hidden);
         if (document.hidden && !yaConto) {
           yaConto = true;
-          fbq('track', 'Lead', { content_name: contentName });
-          fbq('track', 'CompleteRegistration', { content_name: contentName });
+          console.log('✅ CONFIRMADO: disparando Lead y CompleteRegistration para', contentName);
+          fbq('track', 'Lead', { content_name: contentName, value: 1, currency: 'USD' });
+          fbq('track', 'CompleteRegistration', { content_name: contentName, value: 1, currency: 'USD' });
         }
       }
 
@@ -48,6 +51,9 @@
       // y quitamos el listener para no contar nada.
       setTimeout(function () {
         document.removeEventListener('visibilitychange', confirmar);
+        if (!yaConto) {
+          console.log('❌ Tiempo agotado sin cambio de pantalla. No se contó nada para', contentName);
+        }
       }, 2500);
     }
   </script>
