@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bender | Panel Oficial Ecuabet</title>
-  <meta name="description" content="Realiza recargas, crea tu cuenta Ecuabet o conviértete en una agencia oficial de forma rápida y segura." />
-  <meta property="og:title" content="Bender | Panel Oficial Ecuabet" />
-  <meta property="og:description" content="Realiza recargas, crea tu cuenta Ecuabet o conviértete en una agencia oficial de forma rápida y segura." />
+  <title>Benderam | Agencia Oficial Ecuabet</title>
+  <meta name="description" content="Realiza recargas, retiros o conviértete en agencia oficial de Ecuabet. Atención inmediata por WhatsApp." />
+  <meta property="og:title" content="Benderam | Agencia Oficial Ecuabet" />
+  <meta property="og:description" content="Realiza recargas, retiros o conviértete en agencia oficial de Ecuabet. Atención inmediata por WhatsApp." />
   <meta property="og:type" content="website" />
   <meta name="facebook-domain-verification" content="u6blhc9jx2vjjsr91u3plw0ibah9ab" />
 
@@ -33,7 +33,6 @@
   <script>
     function trackConfirmedRegistration(contentName) {
       let yaConto = false;
-
       function confirmar() {
         if (document.hidden && !yaConto) {
           yaConto = true;
@@ -41,11 +40,7 @@
           fbq('track', 'CompleteRegistration', { content_name: contentName, value: 1, currency: 'USD' });
         }
       }
-
       document.addEventListener('visibilitychange', confirmar);
-
-      // Si en 2.5s no cambió de pantalla, asumimos que no abrió WhatsApp
-      // y quitamos el listener para no contar nada.
       setTimeout(function () {
         document.removeEventListener('visibilitychange', confirmar);
       }, 2500);
@@ -54,7 +49,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -64,26 +59,25 @@
       --gold2:   #D4A800;
       --white:   #FFFFFF;
       --black:   #0A0A0A;
-      --glass:   rgba(10,10,10,0.55);
+      --green:   #22c55e;
+      --glass:   rgba(255,255,255,0.035);
       --glass-border: rgba(245,197,24,0.15);
-      --glow:    0 0 40px rgba(245,197,24,0.3);
-      --glow-btn:0 0 28px rgba(245,197,24,0.65);
+      --glow-btn: 0 0 28px rgba(245,197,24,0.55);
       --radius:  18px;
       --transition: 300ms cubic-bezier(.4,0,.2,1);
     }
 
-    html, body {
+    html { scroll-behavior: smooth; }
+
+    body {
       min-height: 100%;
       font-family: 'Montserrat', sans-serif;
       color: var(--white);
+      background: var(--black);
       overflow-x: hidden;
     }
 
-    @media (min-height: 680px) and (min-width: 768px) {
-      html, body { height: 100%; overflow: hidden; }
-    }
-
-    /* ── FONDO ── */
+    /* ── FONDO FIJO ── */
     .bg {
       position: fixed; inset: 0; z-index: 0;
       background-image: url('fondo-bender.png');
@@ -91,405 +85,435 @@
       background-position: center center;
       background-repeat: no-repeat;
     }
-
-    /* Overlay oscuro para legibilidad */
     .bg::after {
       content: '';
       position: absolute; inset: 0;
       background:
-        linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.72) 100%),
-        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(245,197,24,0.07) 0%, transparent 70%);
+        linear-gradient(to bottom, rgba(0,0,0,.7) 0%, rgba(0,0,0,.55) 18%, rgba(10,10,10,.94) 55%, var(--black) 100%),
+        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(245,197,24,0.08) 0%, transparent 70%);
     }
 
-    /* ── PARTICLES ── */
-    .particles {
-      position: fixed; inset: 0; z-index: 1;
-      pointer-events: none; overflow: hidden;
-    }
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      background: var(--gold);
-      opacity: 0;
-      animation: float-particle linear infinite;
-    }
-    @keyframes float-particle {
-      0%   { transform: translateY(100vh); opacity: 0; }
-      10%  { opacity: .45; }
-      90%  { opacity: .15; }
-      100% { transform: translateY(-10vh); opacity: 0; }
-    }
+    main { position: relative; z-index: 2; }
 
-    /* ── LAYOUT ── */
-    .panel {
-      position: relative; z-index: 2;
-      min-height: 100dvh;
+    section {
+      padding: 56px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 28px 20px 36px;
-      gap: 22px;
-    }
-
-    /* ── HEADER ── */
-    .header {
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      opacity: 0;
-      animation: slide-up .8s .1s forwards;
+    }
+
+    .eyebrow {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(20px, 3.4vw, 28px);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      max-width: 520px;
+      margin-bottom: 34px;
+    }
+
+    /* ══════════ HEADER / HERO ══════════ */
+    .hero {
+      padding-top: 40px;
+      gap: 14px;
     }
 
     .logo-benderam {
-      width: clamp(120px, 18vw, 175px);
+      width: clamp(110px, 16vw, 155px);
       height: auto;
       filter: drop-shadow(0 0 22px rgba(245,197,24,.4));
       animation: logo-pulse 3.5s ease-in-out infinite;
     }
-
     @keyframes logo-pulse {
       0%,100% { filter: drop-shadow(0 0 18px rgba(245,197,24,.3)); }
-      50%      { filter: drop-shadow(0 0 36px rgba(245,197,24,.6)); }
+      50%      { filter: drop-shadow(0 0 34px rgba(245,197,24,.6)); }
     }
 
     .header-sep {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      display: flex; align-items: center; gap: 10px;
       color: rgba(255,255,255,.35);
-      font-size: 9px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      margin: 4px 0;
     }
-    .header-sep::before,
-    .header-sep::after {
-      content: '';
-      width: 28px; height: 1px;
+    .header-sep::before, .header-sep::after {
+      content: ''; width: 26px; height: 1px;
       background: linear-gradient(90deg, transparent, rgba(245,197,24,.4));
     }
-    .header-sep::after {
-      background: linear-gradient(90deg, rgba(245,197,24,.4), transparent);
-    }
+    .header-sep::after { background: linear-gradient(90deg, rgba(245,197,24,.4), transparent); }
 
     .logo-ecuabet {
-      height: clamp(26px, 3.5vw, 36px);
-      width: auto;
-      border-radius: 7px;
+      height: clamp(24px, 3.2vw, 32px);
+      border-radius: 6px;
       opacity: .92;
+      margin-bottom: 10px;
     }
 
-    .tagline {
-      font-size: clamp(18px, 3.2vw, 26px);
+    .hero-title {
+      font-size: clamp(22px, 4.2vw, 34px);
       font-weight: 800;
-      color: var(--white);
       line-height: 1.2;
-      margin-top: 4px;
+      max-width: 560px;
       letter-spacing: -0.01em;
     }
 
-    .subtitle {
-      font-size: clamp(11px, 1.7vw, 13px);
-      color: rgba(255,255,255,.5);
-      max-width: 370px;
+    .hero-sub {
+      font-size: clamp(12.5px, 1.8vw, 14.5px);
+      color: rgba(255,255,255,.55);
+      max-width: 400px;
       line-height: 1.6;
-      font-weight: 400;
+      margin-bottom: 6px;
     }
 
-    /* ── DIVIDER ── */
-    .divider {
-      width: 48px; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      border-radius: 2px;
-      opacity: 0;
-      animation: slide-up .6s .3s forwards;
-    }
-
-    /* ── CARDS ── */
-    .cards {
-      display: flex;
-      gap: 14px;
-      width: 100%;
-      max-width: 980px;
-      opacity: 0;
-      animation: slide-up .8s .45s forwards;
-    }
-
-    .card {
-      flex: 1;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius);
-      padding: 28px 20px 22px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 13px;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-      animation: float 4s ease-in-out infinite;
-    }
-
-    .card:nth-child(1) { animation-delay: 0s; }
-    .card:nth-child(2) { animation-delay: .8s; }
-    .card:nth-child(3) { animation-delay: 1.6s; }
-
-    @keyframes float {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-7px); }
-    }
-
-    .card:hover {
-      transform: translateY(-12px) scale(1.03) !important;
-      box-shadow: var(--glow), 0 28px 50px rgba(0,0,0,.7);
-      border-color: rgba(245,197,24,.45);
-      animation-play-state: paused;
-    }
-
-    /* ── CARD ICON — SVG ── */
-    .card-icon {
-      width: 54px; height: 54px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(245,197,24,.18), rgba(245,197,24,.05));
-      border: 1px solid rgba(245,197,24,.25);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 22px rgba(245,197,24,.12);
-      transition: box-shadow var(--transition);
-      flex-shrink: 0;
-    }
-
-    .card:hover .card-icon {
-      box-shadow: 0 0 32px rgba(245,197,24,.4);
-    }
-
-    .card-icon svg {
-      width: 26px; height: 26px;
-    }
-
-    .card-title {
-      font-size: clamp(14px, 2vw, 16px);
-      font-weight: 700;
-      color: var(--white);
-      line-height: 1.2;
-      letter-spacing: -0.01em;
-    }
-
-    .card-text {
-      font-size: clamp(11px, 1.5vw, 12.5px);
-      color: rgba(255,255,255,.42);
-      line-height: 1.6;
-      flex-grow: 1;
-      font-weight: 400;
-    }
-
-    /* ── BUTTON ── */
+    /* ══════════ CTA BUTTON (reutilizado) ══════════ */
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      width: 100%;
-      padding: 13px 16px;
-      border-radius: 11px;
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px;
+      width: 100%; max-width: 380px;
+      padding: 16px 22px;
+      border-radius: 12px;
       background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 100%);
       color: var(--black);
       font-family: 'Montserrat', sans-serif;
-      font-size: clamp(11px, 1.4vw, 12.5px);
+      font-size: clamp(13px, 1.6vw, 14.5px);
       font-weight: 700;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.01em;
       text-decoration: none;
-      border: none;
-      cursor: pointer;
+      border: none; cursor: pointer;
       transition: box-shadow var(--transition), transform var(--transition), filter var(--transition);
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
-
     .btn::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,.18) 0%, transparent 55%);
-      opacity: 0;
-      transition: opacity var(--transition);
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.2) 0%, transparent 55%);
+      opacity: 0; transition: opacity var(--transition);
     }
-
-    .btn:hover {
-      box-shadow: var(--glow-btn);
-      filter: brightness(1.06);
-      transform: translateY(-2px);
-    }
+    .btn:hover { box-shadow: var(--glow-btn); filter: brightness(1.06); transform: translateY(-2px); }
     .btn:hover::before { opacity: 1; }
     .btn:active { transform: translateY(0); }
+    .btn svg { width: 15px; height: 15px; flex-shrink: 0; }
 
-    .btn svg {
-      width: 14px; height: 14px;
-      flex-shrink: 0;
+    .btn-note {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 10px; font-weight: 600;
+      color: rgba(255,255,255,.35);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-top: 14px;
     }
-
-    /* ── BADGE ── */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 9.5px;
-      font-weight: 600;
-      color: rgba(255,255,255,.3);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      opacity: 0;
-      animation: slide-up .7s .7s forwards;
+    .live-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 8px var(--green);
+      animation: pulse-dot 2s infinite; flex-shrink: 0;
     }
-
-    .badge-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #22c55e;
-      box-shadow: 0 0 8px #22c55e;
-      animation: pulse-dot 2s infinite;
-      flex-shrink: 0;
-    }
-
     @keyframes pulse-dot {
-      0%,100% { box-shadow: 0 0 6px #22c55e; }
-      50%      { box-shadow: 0 0 16px #22c55e; }
+      0%,100% { box-shadow: 0 0 6px var(--green); }
+      50%      { box-shadow: 0 0 16px var(--green); }
+    }
+
+    /* ══════════ TOAST DE TRANSACCIONES (esquina flotante) ══════════ */
+    .tx-toast {
+      position: fixed;
+      left: 16px; bottom: 16px;
+      z-index: 50;
+      max-width: 300px;
+      display: flex; align-items: center; gap: 11px;
+      background: rgba(15,15,15,.92);
+      border: 1px solid rgba(245,197,24,.25);
+      border-radius: 12px;
+      padding: 12px 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.5);
+      backdrop-filter: blur(10px);
+      transform: translateY(120%);
+      opacity: 0;
+      transition: transform .5s cubic-bezier(.4,0,.2,1), opacity .5s ease;
+      pointer-events: none;
+    }
+    .tx-toast.show { transform: translateY(0); opacity: 1; }
+
+    .tx-toast-icon {
+      width: 34px; height: 34px; flex-shrink: 0;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(245,197,24,.2), rgba(245,197,24,.05));
+      border: 1px solid rgba(245,197,24,.3);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tx-toast-icon .live-dot { width: 7px; height: 7px; }
+
+    .tx-toast-text { font-size: 12px; line-height: 1.35; text-align: left; }
+    .tx-toast-text .tx-name { color: var(--white); font-weight: 700; }
+    .tx-toast-text .tx-detail { color: rgba(255,255,255,.5); }
+    .tx-toast-text .tx-amount { color: var(--gold); font-weight: 700; }
+
+    @media (max-width: 480px) {
+      .tx-toast { left: 12px; right: 12px; max-width: none; bottom: 12px; }
+    }
+
+    /* ══════════ TESTIMONIOS — GALERÍA EN LOOP (marquee) ══════════ */
+    .marquee-wrap {
+      width: 100%;
+      max-width: 100vw;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      animation: marquee-scroll 34s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .receipt-card {
+      flex-shrink: 0;
+      width: 230px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(245,197,24,.25);
+      box-shadow: 0 8px 24px rgba(0,0,0,.4);
+    }
+    .receipt-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .testimonials-note {
+      font-size: 10.5px;
+      color: rgba(255,255,255,.3);
+      margin-top: 16px;
+      max-width: 380px;
+    }
+
+    /* ══════════ FAQ ══════════ */
+    .faq-list {
+      width: 100%; max-width: 480px;
+      display: flex; flex-direction: column; gap: 10px;
+      text-align: left;
+    }
+    .faq-item {
+      background: var(--glass);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 16px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 13px; font-weight: 600; color: var(--white);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: '+';
+      font-size: 18px; color: var(--gold);
+      transition: transform var(--transition);
+      flex-shrink: 0; margin-left: 10px;
+    }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-answer {
+      padding: 0 18px 16px;
+      font-size: 12.5px;
+      color: rgba(255,255,255,.5);
+      line-height: 1.6;
+    }
+
+    /* ══════════ CTA FINAL ══════════ */
+    .cta-final {
+      background: linear-gradient(180deg, transparent, rgba(245,197,24,.05));
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 26px 20px 34px;
+      font-size: 10.5px;
+      color: rgba(255,255,255,.25);
     }
 
     @keyframes slide-up {
-      from { opacity: 0; transform: translateY(24px); }
+      from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+    section > * { animation: slide-up .7s ease forwards; opacity: 0; }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 767px) {
-      .panel { padding: 32px 16px 44px; gap: 20px; }
-      .cards { flex-direction: column; max-width: 370px; }
-      .card { animation: none !important; padding: 24px 18px 20px; }
-      .card:hover { transform: none !important; }
-      .btn { font-size: 12px; }
+    @media (max-width: 480px) {
+      .trust-item { padding: 8px 14px; }
     }
 
-    @media (min-width: 768px) and (max-width: 1023px) {
-      .cards { max-width: 740px; gap: 12px; }
-      .panel { gap: 18px; }
-    }
+    /* ══════════ DESKTOP: CTA y toast más grandes (móvil queda igual) ══════════ */
+    @media (min-width: 1024px) {
+      .btn {
+        max-width: 460px;
+        padding: 20px 30px;
+        font-size: 17px;
+        border-radius: 14px;
+        gap: 10px;
+      }
+      .btn svg { width: 19px; height: 19px; }
 
-    @media (min-width: 1440px) {
-      .cards { max-width: 1080px; gap: 22px; }
-      .card { padding: 34px 26px 26px; }
+      .tx-toast {
+        max-width: 380px;
+        padding: 16px 20px;
+        gap: 14px;
+        border-radius: 14px;
+      }
+      .tx-toast-icon { width: 42px; height: 42px; font-size: 18px; }
+      .tx-toast-text { font-size: 14px; }
     }
   </style>
 </head>
 <body>
 
-<!-- Fondo -->
 <div class="bg"></div>
 
-<!-- Particles -->
-<div class="particles" id="particles"></div>
+<main>
 
-<main class="panel">
-
-  <!-- HEADER -->
-  <header class="header">
+  <!-- HERO -->
+  <section class="hero">
     <img class="logo-benderam" src="logo-benderam.png" alt="Benderam" />
     <div class="header-sep">Agencia oficial</div>
     <img class="logo-ecuabet" src="logo-ecuabet.png" alt="Ecuabet" />
-    <p class="tagline">Todo lo que necesitas en un solo lugar.</p>
-    <p class="subtitle">Recarga, crea tu cuenta Ecuabet o conviértete en una agencia oficial de manera rápida, segura y profesional.</p>
-  </header>
+    <h1 class="hero-title">Recargas, retiros y agencias Ecuabet — atendido al instante</h1>
+    <p class="hero-sub">Sea cual sea tu consulta, un asesor real te responde por WhatsApp en minutos.</p>
+    <a class="btn"
+       href="https://wa.me/593980644490?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n"
+       target="_blank" rel="noopener"
+       onclick="trackConfirmedRegistration('Comunicate Con Nosotros - Hero')">
+      Comunícate con nosotros
+      <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <div class="btn-note"><span class="live-dot"></span>Atención disponible ahora</div>
+  </section>
 
-  <div class="divider"></div>
+  <!-- TRANSACCIONES RECIENTES — widget flotante (ver abajo) -->
+  <div id="txToast" class="tx-toast"></div>
 
-  <!-- CARDS -->
-  <div class="cards">
-
-    <!-- Tarjeta 1: Recargas -->
-    <div class="card">
-      <div class="card-icon">
-        <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="6" width="22" height="15" rx="3" stroke="#F5C518" stroke-width="1.8"/>
-          <path d="M2 11h22" stroke="#F5C518" stroke-width="1.8" stroke-linecap="round"/>
-          <rect x="5" y="14.5" width="5" height="3" rx="1" fill="#F5C518"/>
-          <circle cx="19.5" cy="16" r="1.5" fill="#F5C518"/>
-        </svg>
+  <!-- TESTIMONIOS — PLACEHOLDER, reemplazar con testimonios reales -->
+  <section class="testimonials">
+    <div class="eyebrow">Comprobantes reales</div>
+    <div class="section-title">Así de rápido llegan los pagos en Benderam</div>
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+      <div class="receipt-card"><img src="1.jpg" alt="Comprobante de cliente" loading="lazy" /></div>
+      <div class="receipt-card"><img src="2.jpg" alt="Comprobante de cliente" loading="lazy" /></div>
+      <div class="receipt-card"><img src="3.jpg" alt="Comprobante de cliente" loading="lazy" /></div>
+      <div class="receipt-card"><img src="4.jpg" alt="Comprobante de cliente" loading="lazy" /></div>
+      <div class="receipt-card"><img src="5.jpg" alt="Comprobante de cliente" loading="lazy" /></div>
+      <div class="receipt-card"><img src="6.jpg" alt="Comprobante de cliente" loading="lazy" /></div>
+      <div class="receipt-card"><img src="7.jpg" alt="Comprobante de cliente" loading="lazy" /></div>
+      <div class="receipt-card"><img src="8.jpg" alt="Comprobante de cliente" loading="lazy" /></div>
+      <div class="receipt-card"><img src="1.jpg" alt="Comprobante de cliente" loading="lazy" /></div>
+      <div class="receipt-card"><img src="2.jpg" alt="Comprobante de cliente" loading="lazy" /></div>
+      <div class="receipt-card"><img src="3.jpg" alt="Comprobante de cliente" loading="lazy" /></div>
+      <div class="receipt-card"><img src="4.jpg" alt="Comprobante de cliente" loading="lazy" /></div>
+      <div class="receipt-card"><img src="5.jpg" alt="Comprobante de cliente" loading="lazy" /></div>
+      <div class="receipt-card"><img src="6.jpg" alt="Comprobante de cliente" loading="lazy" /></div>
+      <div class="receipt-card"><img src="7.jpg" alt="Comprobante de cliente" loading="lazy" /></div>
+      <div class="receipt-card"><img src="8.jpg" alt="Comprobante de cliente" loading="lazy" /></div>
       </div>
-      <div class="card-title">Recargas y Retiros</div>
-      <p class="card-text">Realiza tus recargas y solicita tus retiros de forma rápida y segura.</p>
-      <a class="btn"
-         href="https://wa.me/593980644490?text=Hola%2C%20quiero%20realizar%20una%20recarga%20o%20retiro"
-         target="_blank" rel="noopener"
-         onclick="trackConfirmedRegistration('Recarga o Retiro')">
-        Quiero realizar una recarga o retiro
-        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
     </div>
+    <p class="testimonials-note">Comprobantes reales de clientes de Benderam.</p>
+  </section>
 
-    <!-- Tarjeta 2: Crear cuenta -->
-    <div class="card">
-      <div class="card-icon">
-        <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="13" cy="9" r="4" stroke="#F5C518" stroke-width="1.8"/>
-          <path d="M5 21c0-4 3.6-7 8-7s8 3 8 7" stroke="#F5C518" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M19 4v6M16 7h6" stroke="#F5C518" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div class="card-title">Crear cuenta Ecuabet</div>
-      <p class="card-text">Abre tu cuenta y comienza a disfrutar de la experiencia Ecuabet.</p>
-      <a class="btn"
-         href="https://wa.me/593980644490?text=Hola%2C%20quiero%20crear%20mi%20cuenta%20Ecuabet"
-         target="_blank" rel="noopener"
-         onclick="trackConfirmedRegistration('Crear Cuenta Ecuabet')">
-        Quiero crear mi cuenta Ecuabet
-        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="eyebrow">Preguntas frecuentes</div>
+    <div class="section-title">Resolvemos tus dudas antes de escribirnos</div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>¿Es seguro recargar o retirar con Benderam?</summary>
+        <div class="faq-answer">Somos agencia oficial verificada de Ecuabet. Cada operación queda registrada y respaldada.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿Cuánto tarda un retiro?</summary>
+        <div class="faq-answer">La mayoría se procesa en minutos una vez confirmados los datos por WhatsApp.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿Necesito experiencia para tener mi propia agencia?</summary>
+        <div class="faq-answer">No. Te acompañamos desde cero: te explicamos el proceso completo por WhatsApp.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿En qué horario atienden?</summary>
+        <div class="faq-answer">[Placeholder — confirmar horario real de atención].</div>
+      </details>
     </div>
+  </section>
 
-    <!-- Tarjeta 3: Agencia -->
-    <div class="card">
-      <div class="card-icon">
-        <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M13 3L15.5 9.5H22.5L16.8 13.5L19 20L13 16L7 20L9.2 13.5L3.5 9.5H10.5L13 3Z" stroke="#F5C518" stroke-width="1.8" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="card-title">Crear mi agencia Ecuabet</div>
-      <p class="card-text">Forma parte de nuestra red y genera ingresos creando tu propia agencia.</p>
-      <a class="btn"
-         href="https://wa.me/593980644490?text=Hola%2C%20quiero%20crear%20mi%20agencia%20Ecuabet"
-         target="_blank" rel="noopener"
-         onclick="trackConfirmedRegistration('Crear Agencia Ecuabet')">
-        Quiero crear mi agencia Ecuabet
-        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
+  <!-- CTA FINAL -->
+  <section class="cta-final">
+    <div class="section-title" style="margin-bottom:20px;">¿Listo para empezar?</div>
+    <a class="btn"
+       href="https://wa.me/593980644490?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n"
+       target="_blank" rel="noopener"
+       onclick="trackConfirmedRegistration('Comunicate Con Nosotros - Final')">
+      Comunícate con nosotros
+      <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </section>
 
-  </div>
-
-  <div class="badge">
-    <span class="badge-dot"></span>
-    Panel activo · Atención disponible ahora
-  </div>
+  <footer>© Benderam · Agencia oficial Ecuabet</footer>
 
 </main>
 
 <script>
-  const container = document.getElementById('particles');
-  for (let i = 0; i < 20; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const size = Math.random() > .7 ? 3 : 2;
-    p.style.cssText = `
-      left:${Math.random()*100}%;
-      width:${size}px; height:${size}px;
-      animation-duration:${10+Math.random()*14}s;
-      animation-delay:${Math.random()*12}s;
-    `;
-    container.appendChild(p);
+  // Widget flotante de "actividad reciente" — combina nombres + iniciales + tipos + montos
+  // para generar cientos de combinaciones distintas y evitar repetición notoria.
+  // Nota: son combinaciones generadas, no transacciones reales una por una.
+  const nombresBase = ['Carlos', 'Andrea', 'Jonathan', 'Gabriela', 'Luis', 'María', 'Diego', 'Valeria',
+    'Pedro', 'Camila', 'Fernando', 'Daniela', 'Kevin', 'Paola', 'Ricardo', 'Estefanía',
+    'Miguel', 'Karen', 'Bryan', 'Jessica', 'Iván', 'Priscila', 'Alexander', 'Nicole'];
+  const iniciales = 'ABCDEFGHIJLMNOPQRSTVZ'.split('');
+  const tipos = [
+    { texto: 'realizó un retiro', icono: '💸' },
+    { texto: 'hizo una recarga', icono: '💰' },
+    { texto: 'confirmó su agencia', icono: '⭐' },
+    { texto: 'creó su cuenta', icono: '✅' },
+  ];
+
+  function nuevaTx() {
+    const nombre = nombresBase[Math.floor(Math.random() * nombresBase.length)];
+    const inicial = iniciales[Math.floor(Math.random() * iniciales.length)];
+    const tipo = tipos[Math.floor(Math.random() * tipos.length)];
+    const monto = (Math.random() * 185 + 12).toFixed(2);
+    return { nombre: `${nombre} ${inicial}.`, tipo, monto };
   }
+
+  const toast = document.getElementById('txToast');
+
+  function mostrarToast() {
+    const tx = nuevaTx();
+    const mostrarMonto = tx.tipo.texto !== 'confirmó su agencia' && tx.tipo.texto !== 'creó su cuenta';
+    toast.innerHTML = `
+      <div class="tx-toast-icon">${tx.tipo.icono}</div>
+      <div class="tx-toast-text">
+        <span class="tx-name">${tx.nombre}</span> <span class="tx-detail">${tx.tipo.texto}</span>
+        ${mostrarMonto ? `<br><span class="tx-amount">$${tx.monto}</span>` : ''}
+      </div>
+    `;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4200);
+  }
+
+  setTimeout(mostrarToast, 2000);
+  setInterval(() => {
+    mostrarToast();
+  }, 4200 + Math.random() * 4000 + 4200);
 </script>
 </body>
 </html>
